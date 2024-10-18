@@ -6,7 +6,7 @@
 
 <b>BACKGROUND</b>
 
-All started from my curiosity when I saw the NIK number on the KTP, can we read this number?
+All started from my curiosity when I saw the NIK number on the KTP, I am askinh myself can we read this number?
 After researching further, I found out that each digit in the NIK can actually be interpreted. From there I tried to create a program in Python to automate this reading process and I successfuly create the code.
 
 On October 2024 I got the assignment to create capstone project from Purwadhika, I choose this Dukcapil app to expand my NIK Generator that I already created.
