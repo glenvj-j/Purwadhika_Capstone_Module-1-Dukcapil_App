@@ -48,9 +48,8 @@ Flow Chart
 ------------
 
 > [!NOTE]
-> Things to know before using the app:
-> password_user = "123456"
-> password_admin = "987654"
+> password_user = "123456"<br>
+> password_admin = "987654"<br>
 > Type 'cancel' or 'batal' if you want to abort feature mid use
 
 
