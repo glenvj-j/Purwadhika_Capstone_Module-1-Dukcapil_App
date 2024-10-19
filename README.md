@@ -4,6 +4,13 @@
 <br>
 <br>
 
+
+> [!NOTE]
+> password_user = "123456"    |    password_admin = "987654"<br>
+> Type 'cancel' or 'batal' if you want to abort feature mid use
+
+<br>
+
 <b>BACKGROUND</b>
 
 All started from my curiosity when I saw the NIK number on the KTP, I am askinh myself can we read this number?
@@ -49,12 +56,7 @@ Flow Chart
 ![Flow5](https://github.com/user-attachments/assets/7bf0fa8a-1cf5-4092-b76c-9197fc07cd15)
 ![Flow6](https://github.com/user-attachments/assets/1987d255-798f-4dc1-93a7-312ce786d5b5)
 
-------------
-
-> [!NOTE]
-> password_user = "123456"<br>
-> password_admin = "987654"<br>
-> Type 'cancel' or 'batal' if you want to abort feature mid use
+--------
 
 
 <br>
