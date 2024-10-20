@@ -1,8 +1,5 @@
 import time
 
-
-
-
 #-----DATABASE------------------------------------------------------------------------------------------------------------------------------------------------#
 
 data_base_penduduk = [
@@ -93,11 +90,11 @@ def menu_lihat_data_penduduk():
     while True:
         try:
             menu_read()
-            menu_choosen1 = int(input("Pilih Nomor yang diinginkan: ")) #to show all data in database
-            if menu_choosen1 == 1:
+            menu_choosen1 = int(input("Pilih Nomor yang diinginkan: ")) #choose what you want to do
+            if menu_choosen1 == 1: #tampilkan semua data
                 if len(data_base_penduduk) == 0: #cheking if data exist in database, if not will back to read menu
                     print("\n")
-                    print("----------------------\n!Database kosong!\n----------------------")
+                    print("-----------------\n!Database kosong!\n-----------------")
                     separator()
                 else:
                     loading()
@@ -106,12 +103,10 @@ def menu_lihat_data_penduduk():
                     for i in data_base_penduduk:
                                 print(f'║ {i[0]}\t{i[1].capitalize()}\t\t{i[2].capitalize()}\t\t\t{i[3]}\t\t{i[4].capitalize()}\t\t{i[5].capitalize()}\t\t║')
                     print("-"*137)
-                    print("\n\n\n")
-                    separator()
-            elif menu_choosen1 == 2:
+                    print("\n")
+            elif menu_choosen1 == 2: #cari dari NIK
                 input_NIK_checker = input("Masukkan NIK yang ingin dicari (16 digit angka): ")
-                NIK_status = 0
-                if input_NIK_checker == "cancel" or input_NIK_checker == "batal" :
+                if input_NIK_checker == "cancel" or input_NIK_checker == "batal" : #abort function
                     print()
                     print("Operasi dibatalkan, kembali ke menu...")
                     separator()
@@ -122,17 +117,18 @@ def menu_lihat_data_penduduk():
                     else:
                         print("Format salah, masukan 16 digit angka NIK")
                         input_NIK_checker = input("Masukkan NIK yang ingin dicari: ")
+                NIK_status = False #storing true or false in data is in database
                 if len(data_base_penduduk) == 0: #cheking if data exist in database, if not will back to read menu
                     print("\n")
                     print("----------------------\n!Data base kosong!\n----------------------")
                 else :
                     for i in data_base_penduduk: #checking data in database, if found update value NIK_status
                         if i[0] == input_NIK_checker:
-                            NIK_status += True 
+                            NIK_status += True
                             print()
                         else:
                             continue
-                    if NIK_status == 1: #show data yang sesuai dengan NIK
+                    if NIK_status == True: #show data yang sesuai dengan NIK
                         print("==NIK ditemukan di Database==")
                         print()
                         print("Lanjut Proses Pengecekan")
@@ -147,47 +143,41 @@ def menu_lihat_data_penduduk():
                         print("-"*137)
                         print("\n\n\n")
                         separator()
-                    elif NIK_status != 1:
+                    elif NIK_status == False:
+                        loading()
                         print("\n==Data NIK tidak ditemukan, kembali ke menu==")
                         print("\n\n\n")
                         separator()
                     continue
 
             elif menu_choosen1 == 3:
-                input_kecamatan_checker = input("Masukkan kecamatan yang ingin dicari: ").capitalize()
+                input_kecamatan_checker = input("Masukkan kecamatan yang ingin dicari: ").lower()
                 kecamatan_status = 0
-                if input_kecamatan_checker == "cancel" or input_kecamatan_checker == "batal" :
-                    print()
-                    print("Operasi dibatalkan, kembali ke menu...")
-                    separator()
-                    break
                 if len(data_base_penduduk) == 0: #cheking if data exist in database, if not will back to read menu
                     print("\n")
                     print("----------------------\n!Data base kosong!\n----------------------")
                 else :
-                    for z in data_base_penduduk: #checking data in database
-                        if z[4] == input_kecamatan_checker:
-                            kecamatan_status += True 
+                    for i in data_base_penduduk: #checking data in database, if found update value kecamatan_status
+                        if i[4].lower() == input_kecamatan_checker:
+                            kecamatan_status += True
                             print()
                         else:
                             continue
-                    if kecamatan_status >= 1: #show data yang sesuai dengan kecamatan
-                        print("==NIK ditemukan di Database==")
-                        print()
-                        print("Lanjut Proses Pengecekan")
+                    if kecamatan_status >= 1: #show data yang sesuai dengan NIK
+                        print("Lanjut Proses Pengecekan....")
+                        print(f"=={kecamatan_status} data ditemukan dalam database==")
                         loading()
                         print("\n\t\t\t\t\t-= List Data Penduduk =-\n")
                         header_tabel()
                         for j in data_base_penduduk:
-                                if j[4] == input_kecamatan_checker.capitalize():
+                                if j[4].lower() == input_kecamatan_checker:
                                     print(f'║ {j[0]}\t{j[1].capitalize()}\t\t{j[2].capitalize()}\t\t\t{j[3]}\t\t{j[4].capitalize()}\t\t{j[5].capitalize()}\t\t║')
                                 else:
                                      continue
                         print("-"*137)
-                        print("\n\n\n")
-                        separator()
                     elif kecamatan_status != 1:
                         print("\n==Data kecamatan tidak ditemukan, kembali ke menu==")
+                        separator()
                     continue
             elif menu_choosen1 == 4:
                 print("Kembali ke Menu Utama>")
@@ -208,10 +198,10 @@ def menu_lihat_data_penduduk():
 #-----NIK Generator
 #===== Tanggal Lahir =====#
 def convert_tanggal():
-    global tanggal_lahir
+    global tanggal_lahir #to be used in create function for preview
     tanggal_lahir = ""
     tanggal_lahir = input("Masukkan Tanggal Lahir dengan format cth. (20-10-90) : ")
-    while True:
+    while True: #long rules to make sure input of tanggal lahir right
         if len(tanggal_lahir) == 8 and "-" in tanggal_lahir and tanggal_lahir.count("-") == 2 and tanggal_lahir[0:2].isnumeric() and int(tanggal_lahir[0:2]) < 32 and tanggal_lahir[3:5].isnumeric() and int(tanggal_lahir[3:5]) < 13 and tanggal_lahir[6:8].isnumeric() and tanggal_lahir[2] == "-" and tanggal_lahir[5] == "-":
             break        
         else:
@@ -224,13 +214,12 @@ def convert_tanggal():
             print("Umur anda belum cukup, minimal umur 17 tahun")
             tanggal_lahir = input("Masukkan Tanggal Lahir dengan format cth. (20-10-90) : ")
     tanggal_lahir_clean = tanggal_lahir.replace('-', '').replace('/','')
-    return tanggal_lahir_clean
+    return tanggal_lahir_clean #to be used for NIK Generator
 
 #===== Kecamatan =====#
 
 def convert_kecamatan():
-    global kecamatan
-    kecamatan = ""
+    global kecamatan #to be used in create function for preview
     kecamatan = input("Masukan Kecamatan yang sesuai : ")
     while True:
         if kecamatan.capitalize() in dataKodeKecamatan:
@@ -240,18 +229,17 @@ def convert_kecamatan():
             print("!Kecamatan tidak ditemukan dalam database!")
             kecamatan = input("Harap Masukan Kecamatan yang sesuai : ")
 
-def NIK_Generator():
+    
+def NIK_Generator(): #combining kecamatan and jenis kelamin to generate NIK
     hasilkecamatan = convert_kecamatan()
-    global JenisKelamin
-    JenisKelamin = ""
-    jenis_kelamin_input = input("Masukan Jenis Kelamin (Pria/Wanita) : ")
+    global JenisKelamin #to be used in create function for preview
+    JenisKelamin = input("Masukan Jenis Kelamin (Pria/Wanita) : ")
     while True:
-        if jenis_kelamin_input.lower() == "pria" or jenis_kelamin_input.lower() == "wanita":
-            JenisKelamin += jenis_kelamin_input
+        if JenisKelamin.lower() == "pria" or JenisKelamin.lower() == "wanita":
             break
         else :
             print("Mohon pilih antara Pria/Wanita!")
-            jenis_kelamin_input = input("Masukan Jenis Kelamin (Pria/Wanita) : ")
+            JenisKelamin = input("Masukan Jenis Kelamin (Pria/Wanita) : ")
     hasiltanggal = convert_tanggal()
     kodeakhir = "0001"
     if JenisKelamin == 'wanita':
@@ -283,36 +271,36 @@ def menu_tambahkan_data_penduduk():
         try:
             menu_create()
             menu_choosen2 = int(input("Pilih Nomor yang diinginkan: "))
-            if menu_choosen2 == 1:
-                new_data_temp = []
+            if menu_choosen2 == 1: #tambahkan data penduduk start
+                new_data_temp = [] #storing all input data before add to main database
                 print()
-                input_nama = input("Masukkan Nama (min 8 & max 15 huruf): ") #max 15 <<----- NAMA
-                if input_nama == "cancel" or input_nama == "batal" :
+                input_nama = input("Masukkan Nama (min 8 & max 15 huruf): ") #input nama
+                if input_nama == "cancel" or input_nama == "batal" : #abort function
                     print()
                     print("Operasi dibatalkan, kembali ke menu...")
                     separator()
                     break
                 while True : #checking input
-                    if len(input_nama) <= 15 and len(input_nama)>=8:
+                    if len(input_nama) <= 15 and len(input_nama)>=8: #checking nama input, must be between 8 and 15
                         break
                     else:
                         print("!Format salah, masukan min 8 & max 15 huruf!")
-                        input_nama = input("Masukkan Nama (min 8 & max 15 huruf): ") #max 15
-                tempat_lahir = input("Masukkan Tempat Lahir (max 7 huruf): ") #max 7 <<----- tempat lahir
-                if tempat_lahir == "cancel" or tempat_lahir == "batal" :
+                        input_nama = input("Masukkan Nama (min 8 & max 15 huruf): ") 
+                tempat_lahir = input("Masukkan Tempat Lahir (max 7 huruf): ") #input tempat lahir
+                if tempat_lahir == "cancel" or tempat_lahir == "batal" :  #abort function
                     print()
                     print("Operasi dibatalkan, kembali ke menu...")
                     separator()
                     break
-                while True : #checking input
-                    if len(tempat_lahir) <= 7 and tempat_lahir.isalpha():
+                while True : #checking input tempat lahir
+                    if len(tempat_lahir) <= 7 and tempat_lahir.isalpha(): #checking tempat lahir input
                         break
                     else:
                         print("!Format salah, masukan max 7 huruf & tanpa angka!")
                         tempat_lahir = input("Masukkan Tempat Lahir (max 7 huruf): ")
-                NIK_generated = NIK_Generator() # <<----- generate tanggal lahir, kecamatan, jenis kelamin | #kalau mau tambahin tabel kerjaan mulai dari sini
+                NIK_generated = NIK_Generator() # <<----- generate tanggal lahir, kecamatan, jenis kelamin
                 NIK_checker = True
-                for l in data_base_penduduk: #menentukan apakah ada NIK di dalam list atau tidak, if found break
+                for l in data_base_penduduk: #menentukan apakah ada NIK di dalam list atau tidak, if found duplicate will break
                     if l[0] == NIK_generated:
                         NIK_checker = False 
                         print("\n\n\n")
@@ -325,7 +313,7 @@ def menu_tambahkan_data_penduduk():
                 if NIK_checker == True: 
                     print()     
                     loading()
-                    print("-=Preview data yang telah dimasukkan=- ") #preview dari data
+                    print("-=Preview data yang telah dimasukkan=- ") #preview from inputed data
                     ktp_layout = f'''
 =================================================
 
@@ -338,7 +326,7 @@ def menu_tambahkan_data_penduduk():
 =================================================
 '''
                     print(ktp_layout)
-                    jawaban_save_create = input("Apakah anda ingin menyimpan data (Y/N)? ")
+                    jawaban_save_create = input("Apakah anda ingin menyimpan data (Y/N)? ") #prompt to save or not
                     if jawaban_save_create.lower() == "y":
                         new_data_temp = [NIK_generated,input_nama.capitalize(),tempat_lahir.capitalize(),tanggal_lahir,kecamatan.capitalize(),JenisKelamin.capitalize()]
                         data_base_penduduk.append(new_data_temp)
@@ -346,6 +334,7 @@ def menu_tambahkan_data_penduduk():
                         separator()
                     else:
                         print("Operasi dibatalkan, kembali ke menu...")
+                        separator()
                         continue
                 else:
                     continue
@@ -384,10 +373,10 @@ def menu_update_data_penduduk():
         try:
             menu_update()
             menu_choosen3 = int(input("Pilih Nomor yang diinginkan: "))
-            if menu_choosen3 == 1:
-                if len(data_base_penduduk) == 0:
+            if menu_choosen3 == 1: #ubah data penduduk
+                if len(data_base_penduduk) == 0: #cheking if data exist in database, if not will back to update menu
                     print("\n")
-                    print("----------------------\n!Database kosong!\n----------------------")
+                    print("-----------------\n!Database kosong!\n-----------------")
                     separator()
                 else:
                     print()
@@ -399,7 +388,6 @@ def menu_update_data_penduduk():
                     print("-"*137)
                     print()
                     NIK_input_update = input("Masukan NIK yang ingin ubah : ")
-                    NIK_status = 0
                     if NIK_input_update == "cancel" or NIK_input_update == "batal" : #untuk cancel kalau ga jadi ngisi
                         print()
                         print("Operasi dibatalkan, kembali ke menu...")
@@ -412,17 +400,17 @@ def menu_update_data_penduduk():
                             print("Format salah, masukan 16 digit angka NIK")
                             NIK_input_update = input("Masukkan NIK yang ingin diubah: ")
                     print()
-                    temp_choosen_update = ""
+                    NIK_status = False #storing true or false the nik found in database
+                    temp_choosen_update = "" #storing choosen data that will be updated for preview purpose
                     for k in data_base_penduduk: #menentukan apakah ada di dalam list atau tidak, kalau ada lanjut
                         if k[0] == NIK_input_update:
                             NIK_status += True
                             temp_choosen_update = k
-                            index_siap_update = data_base_penduduk.index(k) #ambil index yang bakal dihapus
-                            
+                            index_siap_update = data_base_penduduk.index(k) #ambil index yang bakal diupdate
                             print()
                         else:
                             continue
-                    if NIK_status == 1:
+                    if NIK_status == True:
                         print("==Data ditemukan dalam database==")
                         print()
                         print("Lanjut Proses Pengecekan")
@@ -449,10 +437,11 @@ def menu_update_data_penduduk():
                             separator()
                             print("\n\n")
                             break
-                        index_pilihan = 0
+                        index_pilihan = 0 #storing which index will be updated
                         if pilihan_choosen_update.lower() == "nama":
                             print()
-                            print("Ubah Nama Terpilih")
+                            print("==Ubah Nama Terpilih==")
+                            print()
                             x_input_baru = input("Masukkan Nama (max 15 huruf & min 8): ")
                             while True :
                                 if len(x_input_baru) <= 15 and len(x_input_baru)>=8:
@@ -460,10 +449,11 @@ def menu_update_data_penduduk():
                                 else:
                                     print("Format salah, max 15 huruf & min 8")
                                     x_input_baru = input("Masukkan Nama (max 15 huruf & min 8): ") #max 15
-                            index_pilihan = 1
+                            index_pilihan = 1 #index nama
                         elif pilihan_choosen_update.lower() == "tempat lahir" or pilihan_choosen_update.lower() == "tempat":
                             print()
-                            print("Ubah Tempat Lahir Terpilih")
+                            print("==Ubah Tempat Lahir Terpilih==")
+                            print()
                             x_input_baru = input("Masukkan Tempat Lahir (max 7 huruf): ")
                             while True :
                                 if len(x_input_baru) <= 7 and x_input_baru.isalpha():
@@ -471,10 +461,11 @@ def menu_update_data_penduduk():
                                 else:
                                     print("Format salah, max 7 huruf")
                                     x_input_baru = input("Masukkan Tempat Lahir (max 7 huruf): ") #max 15
-                            index_pilihan = 2
+                            index_pilihan = 2 #index tempat lahir
                         elif pilihan_choosen_update.lower() == "tanggal lahir" or pilihan_choosen_update.lower() == "tanggal":
                             print()
-                            print("Ubah Tanggal Lahir Terpilih")
+                            print("==Ubah Tanggal Lahir Terpilih==")
+                            print()
                             x_input_baru = input("Masukkan dengan Format Tanggal cth. (20-10-90) : ")
                             while True :
                                 if len(x_input_baru) == 8 and "-" in x_input_baru and x_input_baru.count("-") == 2 and x_input_baru[0:2].isnumeric and x_input_baru[3:5].isnumeric and x_input_baru[6:8].isnumeric and x_input_baru[2] == "-" and x_input_baru[5] == "-" and int(x_input_baru[0:2]) < 32 and x_input_baru[3:5].isnumeric() and int(x_input_baru[3:5]) < 13:
@@ -488,10 +479,11 @@ def menu_update_data_penduduk():
                                 else:
                                     print("Umur anda belum cukup, minimal umur 17 tahun")
                                     x_input_baru = input("Masukkan dengan Format Tanggal cth. (20-10-90) : ")
-                            index_pilihan = 3
+                            index_pilihan = 3 #index tanggal lahir
                         elif pilihan_choosen_update.lower() == "kecamatan":
                             print()
-                            print("Ubah Kecamatan Terpilih")
+                            print("==Ubah Kecamatan Terpilih==")
+                            print()
                             x_input_baru = input("Harap Masukan Kecamatan yang sesuai : ")
                             while True :
                                 if x_input_baru.capitalize() in dataKodeKecamatan:
@@ -499,10 +491,11 @@ def menu_update_data_penduduk():
                                 else:
                                     print("!Kecamatan tidak ditemukan dalam database!")
                                     x_input_baru = input("Harap Masukan Kecamatan yang sesuai : ")
-                            index_pilihan = 4
+                            index_pilihan = 4 #index kecamatan
                         elif pilihan_choosen_update.lower() == "jenis kelamin":
                             print()
-                            print("Ubah Jenis Kelamin Terpilih")
+                            print("==Ubah Jenis Kelamin Terpilih==")
+                            print()
                             x_input_baru = input("Masukan Jenis Kelamin (Pria/Wanita) : ")
                             while True :
                                 if x_input_baru.lower() == "pria" or x_input_baru.lower() == "wanita":
@@ -510,20 +503,21 @@ def menu_update_data_penduduk():
                                 else:
                                     print("Mohon pilih antara Pria/Wanita!")
                                     x_input_baru = input("Masukan Jenis Kelamin (Pria/Wanita) : ")
-                            index_pilihan = 5
+                            index_pilihan = 5 #index jenis kelamin
                         elif pilihan_choosen_update.upper() == "NIK":
                             print()
                             print("-=Mohon maaf nomor NIK tidak bisa diubah=-")
                             continue
-                        else:
+                        else: #if user input other than choice
                             print()
                             print("Pilihan Tidak Tersedia")
                             separator()
                             continue
 
-                        jawaban_update = input("Apakah anda yakin ingin mengubah data (Y/N)? ")
+                        jawaban_update = input("Apakah anda yakin ingin mengubah data (Y/N)? ") #prompt to save the update or not
                         if jawaban_update.lower() == "y":
-                            data_base_penduduk[index_siap_update][index_pilihan] = x_input_baru
+                            data_base_penduduk[index_siap_update][index_pilihan] = x_input_baru #choose index data and which index will be updated
+                            loading()
                             print("Data Berhasil di ubah!")
                             print()
                             print("\n\n\n")
@@ -535,7 +529,8 @@ def menu_update_data_penduduk():
                             separator()
                             continue
 
-                    elif NIK_status != 1:
+                    elif NIK_status == False:
+                        loading()
                         print("\n==Data NIK tidak ditemukan, kembali ke menu==")
                         print("\n\n\n")
                         separator()
@@ -580,10 +575,10 @@ def menu_hapus_data_penduduk():
         try:
             menu_delete()
             menu_choosen4 = int(input("Pilih Nomor yang diinginkan: "))
-            if menu_choosen4 == 1:
-                if len(data_base_penduduk) == 0:
+            if menu_choosen4 == 1: #hapus data penduduk by NIK
+                if len(data_base_penduduk) == 0: #cheking if data exist in database, if not will back to delete menu
                     print("\n")
-                    print("----------------------\n!Database kosong!\n----------------------")
+                    print("-----------------\n!Database kosong!\n-----------------")
                     separator()
                 else:
                     loading()
@@ -594,12 +589,12 @@ def menu_hapus_data_penduduk():
                     print("-"*137)
                     print()
                     NIK_input_delete = input("Masukan NIK yang ingin dihapus : ")
-                    if NIK_input_delete == "cancel" or NIK_input_delete == "batal":
+                    if NIK_input_delete == "cancel" or NIK_input_delete == "batal": #abort function
                         print()
                         print("Operasi dibatalkan, kembali ke menu...")
                         separator()
                         break
-                    NIK_status = 0
+                    
                     while True:
                         if len(NIK_input_delete) == 16 and NIK_input_delete.isnumeric:
                             break        
@@ -607,18 +602,18 @@ def menu_hapus_data_penduduk():
                             print("Format salah, masukan 16 digit angka NIK")
                             NIK_input_delete = input("Masukkan NIK yang ingin dihapus: ")
                     print()
-                    temp_choosen_delete = ""
+                    
+                    NIK_status = False #storing true or false the nik found in database
+                    temp_choosen_delete = "" #storing choosen data that will be deleted for preview purpose
                     for o in data_base_penduduk: #menentukan apakah ada di dalam list atau tidak, kalau ada lanjut
                         if o[0] == NIK_input_delete:
                             NIK_status += True
                             temp_choosen_delete = o
-                            index_siap_delete = []
                             index_siap_delete = data_base_penduduk.index(o) #ambil index yang bakal dihapus
-                            
                             print()
                         else:
                             continue
-                    if NIK_status == 1:
+                    if NIK_status == True:
                         print("==Data ditemukan dalam database==")
                         print()
                         print("Lanjut Proses Pengecekan")
@@ -629,7 +624,7 @@ def menu_hapus_data_penduduk():
                         print(f'║ {temp_choosen_delete[0]}\t{temp_choosen_delete[1].capitalize()}\t\t{temp_choosen_delete[2].capitalize()}\t\t\t{temp_choosen_delete[3]}\t\t{temp_choosen_delete[4].capitalize()}\t\t{temp_choosen_delete[5].capitalize()}\t\t║')
                         print("-"*137)
                         print("\n")
-                        jawaban_delete = input("Apakah anda yakin ingin menghapus data?\nData yang sudah dihapus tidak dapat dikembalikan!! (Y/N) ")
+                        jawaban_delete = input("Apakah anda yakin ingin menghapus data?\nData yang sudah dihapus tidak dapat dikembalikan!! (Y/N) ") #prompt to delete data
                         if jawaban_delete.lower() == "y":
                             data_base_penduduk_deleted.append(data_base_penduduk[index_siap_delete])
                             data_base_penduduk.pop(index_siap_delete)
@@ -643,14 +638,15 @@ def menu_hapus_data_penduduk():
                             continue
 
                     
-                    elif NIK_status != 1:
+                    elif NIK_status == False:
                         print("\n==Data NIK tidak ditemukan, kembali ke menu==")
+                        separator()
                     continue
                             
-            elif menu_choosen4 == 2:   
-                if len(data_base_penduduk) == 0:
+            elif menu_choosen4 == 2:   #hapus data penduduk by Nama
+                if len(data_base_penduduk) == 0: #cheking if data exist in database, if not will back to delete menu
                     print("\n")
-                    print("----------------------\n!Database kosong!\n----------------------")
+                    print("-----------------\n!Database kosong!\n-----------------")
                     separator()
                 else:
                     loading()
@@ -666,21 +662,18 @@ def menu_hapus_data_penduduk():
                         print("Operasi dibatalkan, kembali ke menu...")
                         separator()
                         break
-                    print(nama_input_delete)
-                    nama_status = 0
                     print()
-                    temp_choosen_delete = ""
+                    nama_status = False #storing true or false the nik found in database
+                    temp_choosen_delete = "" #storing choosen data that will be deleted for preview purpose
                     for r in data_base_penduduk: #menentukan apakah ada di dalam list atau tidak, kalau ada lanjut
                         if r[1].lower() == nama_input_delete:
                             nama_status += True
                             temp_choosen_delete = r
-                            index_siap_delete = []
                             index_siap_delete = data_base_penduduk.index(r) #ambil index yang bakal dihapus
-                            
                             print()
                         else:
                             continue
-                    if nama_status == 1:
+                    if nama_status == True:
                         print("==Data ditemukan dalam database==")
                         print()
                         print("Lanjut Proses Pengecekan")
@@ -691,10 +684,10 @@ def menu_hapus_data_penduduk():
                         print(f'║ {temp_choosen_delete[0]}\t{temp_choosen_delete[1].capitalize()}\t\t{temp_choosen_delete[2].capitalize()}\t\t\t{temp_choosen_delete[3]}\t\t{temp_choosen_delete[4].capitalize()}\t\t{temp_choosen_delete[5].capitalize()}\t\t║')
                         print("-"*137)
                         print("\n")
-                        jawaban_delete = input("Apakah anda yakin ingin menghapus data?\nData yang sudah dihapus tidak dapat dikembalikan!! (Y/N) ")
+                        jawaban_delete = input("Apakah anda yakin ingin menghapus data?\nData yang sudah dihapus tidak dapat dikembalikan!! (Y/N) ") #prompt to delete data
                         if jawaban_delete.lower() == "y":
-                            data_base_penduduk_deleted.append(data_base_penduduk[index_siap_delete])
-                            data_base_penduduk.pop(index_siap_delete)
+                            data_base_penduduk_deleted.append(data_base_penduduk[index_siap_delete]) #storing deleted data to recyle bin database
+                            data_base_penduduk.pop(index_siap_delete) #delete selected index
                             print()
                             print("Data Berhasil dihapus!")
                             print("\n\n\n")
@@ -705,7 +698,7 @@ def menu_hapus_data_penduduk():
                             print("\n\n\n")
                             separator()
                             continue                    
-                    elif nama_status != 1:
+                    elif nama_status == False:
                         print("\n==Nama tidak ditemukan, harap mengetik sesuai nama di database, kembali ke menu==")
                         print("\n\n\n")
                         separator()
@@ -778,7 +771,21 @@ def NIK_reader():
 password_user = "123456"
 password_admin = "987654"
 
-def admin_menu_login(): # login menu admin, kalau sudah benar lanjut ke menu admin
+def menu_admin():
+    print('''
+                   -----------------------
+                   |      Menu Admin     |
+                   -----------------------
+        Menu :
+          
+        1.Ganti Password User
+        2.Pulihkan Data yang telah dihapus
+        3.Kembali ke Menu Utama
+
+''')
+
+
+def admin_menu_login(): # admin password checker, kalau sudah benar lanjut ke menu admin
     while True:
         print()
         print("-"*47)
@@ -795,18 +802,7 @@ def admin_menu_login(): # login menu admin, kalau sudah benar lanjut ke menu adm
             separator()
             break
 
-def menu_admin():
-    print('''
-                   -----------------------
-                   |      Menu Admin     |
-                   -----------------------
-        Menu :
-          
-        1.Ganti Password User
-        2.Pulihkan Data yang telah dihapus
-        3.Kembali ke Menu Utama
 
-''')
 
 
 def admin_menu_list():
@@ -814,9 +810,9 @@ def admin_menu_list():
         try:
             menu_admin()
             menu_choosen6 = int(input("Pilih Nomor yang diinginkan: "))
-            if menu_choosen6 == 1:
+            if menu_choosen6 == 1: #ganti password user
                 change_password_user()
-            elif menu_choosen6 == 2:
+            elif menu_choosen6 == 2: #restore data from recycle bin
                 if len(data_base_penduduk_deleted) == 0: #cheking if data exist in database, if not will back to admin menu
                     print("\n")
                     print("-----------------\n!Database kosong!\n-----------------")
@@ -837,15 +833,15 @@ def admin_menu_list():
                         print("Operasi dibatalkan, kembali ke menu...")
                         separator()
                         break
-                    NIK_restore_status = 0
                     while True:
-                        if len(NIK_input_restore) == 16 and NIK_input_restore.isnumeric:
+                        if len(NIK_input_restore) == 16 and NIK_input_restore.isnumeric: #input checker
                             break        
                         else:
                             print("Format salah, masukan 16 digit angka NIK")
                             NIK_input_restore = input("Masukkan NIK yang ingin dipulihkan: ")
                     print()
-                    temp_choosen_restore = ""
+                    NIK_restore_status = False
+                    temp_choosen_restore = "" #for preview purpose
                     for o in data_base_penduduk_deleted: #menentukan apakah ada di dalam list atau tidak, kalau ada lanjut
                         if o[0] == NIK_input_restore:
                             NIK_restore_status += True
@@ -854,7 +850,7 @@ def admin_menu_list():
                             print()
                         else:
                             continue
-                    if NIK_restore_status == 1:
+                    if NIK_restore_status == True:
                         print("==Data ditemukan dalam keranjang sampah==")
                         print()
                         loading()
@@ -866,8 +862,8 @@ def admin_menu_list():
                         print("\n")
                         jawaban_delete = input("Apakah anda yakin ingin memulihkan data? (Y/N) ")
                         if jawaban_delete.lower() == "y":
-                            data_base_penduduk.append(data_base_penduduk_deleted[index_siap_restore])
-                            data_base_penduduk_deleted.pop(index_siap_restore)
+                            data_base_penduduk.append(data_base_penduduk_deleted[index_siap_restore]) #add selected data to be restored to main database
+                            data_base_penduduk_deleted.pop(index_siap_restore) #delete the selected data after restored in database deleted
                             loading()
                             print()
                             print("Data Berhasil dipulihkan !")
