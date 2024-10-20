@@ -277,7 +277,7 @@ def menu_tambahkan_data_penduduk():
             if menu_choosen2 == 1: #tambahkan data penduduk start
                 new_data_temp = [] #storing all input data before add to main database
                 print()
-                input_nama = input("Masukkan Nama (min 8 & max 15 huruf): ") #input nama
+                input_nama = input("Masukkan Nama (min 8 & max 15 huruf): ").capitalize() #input nama
                 if input_nama == "cancel" or input_nama == "batal" : #abort function
                     print()
                     print("Operasi dibatalkan, kembali ke menu...")
