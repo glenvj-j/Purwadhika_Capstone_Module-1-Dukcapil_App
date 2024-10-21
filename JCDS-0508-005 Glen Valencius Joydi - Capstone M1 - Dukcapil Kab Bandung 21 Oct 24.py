@@ -67,7 +67,7 @@ def loading():
     keyword = 'Memuat...'
     for i in keyword:
         print(i,end='', flush=True)
-        time.sleep(0)
+        time.sleep(0.1)
     print('\n\n\n')
 
 def separator():
