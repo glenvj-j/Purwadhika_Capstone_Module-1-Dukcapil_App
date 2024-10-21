@@ -783,7 +783,8 @@ def menu_admin():
           
         1.Ganti Password User
         2.Pulihkan Data yang telah dihapus
-        3.Kembali ke Menu Utama
+        3.Hapus Semua Data
+        4.Kembali ke Menu Utama
 
 ''')
 
@@ -876,6 +877,14 @@ def admin_menu_list():
                             separator()
                             continue
             elif menu_choosen6 == 3:
+                hapus_all_input = input("Apakah kamu yakin untuk menghapus semua data? (Y/N) ")
+                if hapus_all_input.lower() == "y":
+                    data_base_penduduk.clear()
+                    print("Semua data berhasil dihapus")
+                else:
+                    separator()
+                    continue
+            elif menu_choosen6 == 4:
                 print("Kembali ke Menu Utama>")
                 separator()
                 break
