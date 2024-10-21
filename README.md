@@ -24,13 +24,20 @@ On October 2024 I got the assignment to create capstone project from Purwadhika,
 <br>
 <br>
 Main Feature of this app:
-  1. Lihat Data Penduduk (READ)
-  2. Tambahkan Data Penduduk (CREATE)
-  3. Ubah Data Penduduk (UPDATE)
-  4. Hapus Data Penduduk (DELETE)
-  5. Cek Data dari NIK Asli (BONUS FEATURE)
-  6. Admin (Restore Deleted dan Change Password)
-  7. Tutup Program
+  1. Lihat Data Penduduk (READ)<br>
+  &nbsp;&nbsp;Showing all data in database also you can search by NIK or Kecamatan
+  3. Tambahkan Data Penduduk (CREATE)<br>
+  &nbsp;&nbsp;Adding New Data to database, got 2 option to add NIK manually or by generated
+  5. Ubah Data Penduduk (UPDATE)<br>
+  &nbsp;&nbsp;Updating Data on database, you can also choose what column to change
+  6. Hapus Data Penduduk (DELETE)<br>
+  &nbsp;&nbsp;Delete by NIK or Name (by name you required to type the exact name)
+  7. Cek Data dari NIK Asli (BONUS FEATURE)<br>
+  &nbsp;&nbsp;Read you real NIK and get the reading result
+  8. Admin (Restore Deleted dan Change Password)<br>
+  &nbsp;&nbsp;You can change user password, restore deleted data, and delete all data at once
+  9. Tutup Program<br>
+  &nbsp;&nbsp;Sayonara
 
 ------------
 
