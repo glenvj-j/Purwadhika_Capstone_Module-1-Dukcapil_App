@@ -881,6 +881,7 @@ def admin_menu_list():
                 if hapus_all_input.lower() == "y":
                     data_base_penduduk.clear()
                     print("Semua data berhasil dihapus")
+                    separator()
                 else:
                     print("Operasi dibatalkan, kembali ke menu...")
                     separator()
