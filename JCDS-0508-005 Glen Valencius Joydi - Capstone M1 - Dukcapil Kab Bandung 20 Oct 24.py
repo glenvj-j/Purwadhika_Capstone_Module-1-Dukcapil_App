@@ -882,6 +882,7 @@ def admin_menu_list():
                     data_base_penduduk.clear()
                     print("Semua data berhasil dihapus")
                 else:
+                    print("Operasi dibatalkan, kembali ke menu...")
                     separator()
                     continue
             elif menu_choosen6 == 4:
