@@ -50,7 +50,7 @@ Main Feature of this app:
       Reversing the code from NIK generator, I can predict some of your information. Don't worry this program won't hold any confidental information<br>
       <br>
   3.Restore Deleted Data (Admin Menu)<br>
-      Even thought in Delete Menu already mentioned the data deleted cannot be retrive, I made this feature just in case for someone that 'accidentaly' delete the data.
+      Even thought in Delete Menu already mentioned the data deleted cannot be retrived, I made this feature just in case for someone that 'accidentaly' delete the data.
       This feature works by using second database that hold deleted data, from that I can restore the data to main database by append<br>
 
 ------------
